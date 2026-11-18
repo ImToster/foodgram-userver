@@ -24,6 +24,6 @@ docker compose up --build -d
 docker compose down
 ```
 
-## Доступ к проекту:
+## Доступ к проекту
 - Главная страница: http://localhost
-- API: http://localhost/api/ingredients/
+- API: http://localhost/api/
