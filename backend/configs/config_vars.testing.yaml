@@ -1,0 +1,18 @@
+worker-threads: 2
+worker-fs-threads: 2
+logger-level: debug
+
+is-testing: true
+
+server-port: 8080
+
+jwt-secret: foodgram-secret
+
+media-url: http://silo:9000
+media-public-url: http://silo:9000/foodgram-media
+media-bucket: foodgram-media
+s3-access-key: minioadmin
+s3-secret-key: minioadmin
+
+# change to URI of your postgres database
+pg-connection: postgresql://foodgram_user:foodgram_password@db:5432/test_foodgram

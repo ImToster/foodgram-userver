@@ -1,0 +1,107 @@
+import {
+  Container,
+  Input,
+  FormTitle,
+  Main,
+  Form,
+  Button,
+} from "../../components";
+import styles from "./styles.module.css";
+import { useFormWithValidation } from "../../utils";
+import { Redirect } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts";
+import MetaTags from "react-meta-tags";
+
+const SignUp = ({ onSignUp, submitError, setSubmitError }) => {
+  const { values, handleChange, errors } = useFormWithValidation();
+  const authContext = useContext(AuthContext);
+
+  const onChange = (e) => {
+    setSubmitError({ submitError: "" });
+    handleChange(e);
+  };
+
+  return (
+    <Main withBG asFlex>
+      {authContext && <Redirect to="/recipes" />}
+      <Container className={styles.center}>
+        <MetaTags>
+          <title>Регистрация</title>
+          <meta
+            name="description"
+            content="Фудграм - Регистрация"
+          />
+          <meta property="og:title" content="Регистрация" />
+        </MetaTags>
+        <Form
+          className={styles.form}
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSignUp(values);
+          }}
+        >
+          <FormTitle>Регистрация</FormTitle>
+          <Input
+            placeholder="Имя"
+            name="first_name"
+            maxLength={150}
+            required
+            isAuth={true}
+            error={errors}
+            onChange={onChange}
+          />
+          <Input
+            placeholder="Фамилия"
+            name="last_name"
+            maxLength={150}
+            required
+            isAuth={true}
+            error={errors}
+            onChange={onChange}
+          />
+          <Input
+            placeholder="Имя пользователя"
+            name="username"
+            pattern="[A-Za-z0-9_.@+-]+"
+            maxLength={150}
+            required
+            isAuth={true}
+            error={errors}
+            onChange={onChange}
+          />
+
+          <Input
+            placeholder="Адрес электронной почты"
+            type="email"
+            name="email"
+            maxLength={254}
+            required
+            isAuth={true}
+            error={errors}
+            onChange={onChange}
+          />
+          <Input
+            placeholder="Пароль"
+            type="password"
+            name="password"
+            minLength={8}
+            maxLength={128}
+            required
+            isAuth={true}
+            error={errors}
+            onChange={onChange}
+          />
+          {submitError.submitError && (
+            <p className={styles.error}>{submitError.submitError}</p>
+          )}
+          <Button modifier="style_dark" type="submit" className={styles.button}>
+            Создать аккаунт
+          </Button>
+        </Form>
+      </Container>
+    </Main>
+  );
+};
+
+export default SignUp;

@@ -1,0 +1,23 @@
+worker-threads: 4
+worker-fs-threads: 2
+logger-level: info
+
+is-testing: false
+
+server-port: 8080
+
+jwt-secret#env: JWT_SECRET
+jwt-secret#fallback: foodgram-secret
+
+media-url: http://silo:9000
+media-public-url#env: MEDIA_PUBLIC_URL
+media-public-url#fallback: http://localhost/media
+media-bucket#env: S3_BUCKET
+media-bucket#fallback: foodgram-media
+s3-access-key#env: S3_ACCESS_KEY
+s3-access-key#fallback: minioadmin
+s3-secret-key#env: S3_SECRET_KEY
+s3-secret-key#fallback: minioadmin
+
+pg-connection#env: DB_CONNECTION
+pg-connection#fallback: postgresql://foodgram_user:foodgram_password@db:5432/foodgram

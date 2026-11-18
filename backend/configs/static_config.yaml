@@ -1,0 +1,312 @@
+components_manager:
+    task_processors:  # Task processor is an executor for coroutine tasks
+
+        main-task-processor:  # Make a task processor for CPU-bound coroutine tasks.
+            worker_threads: $worker-threads  # Process tasks in 4 threads.
+
+        fs-task-processor:  # Make a separate task processor for filesystem bound tasks.
+            worker_threads: $worker-fs-threads
+
+    default_task_processor: main-task-processor
+
+    components:  # Configuring components that were registered via component_list
+        server:
+            listener:  # configuring the main listening socket...
+                port: $server-port  # ...to listen on this port and...
+                task_processor: main-task-processor  # ...process incoming requests on this task processor.
+
+        default-server-middleware-pipeline-builder:
+            append:
+              - cors-middleware
+
+        cors-middleware:
+            allowed-origins:
+              - '*'
+              - http://localhost
+              - http://127.0.0.1
+              - http://localhost:3000
+              - http://127.0.0.1:3000
+            allowed-headers:
+              - Accept
+              - Accept-Language
+              - Content-Language
+              - Content-Type
+              - Authorization
+            max-age-seconds: 86400
+
+        logging:
+            fs-task-processor: fs-task-processor
+            loggers:
+                default:
+                    file_path: '@stderr'
+                    level: $logger-level
+                    overflow_behavior: discard
+
+        dynamic-config:
+            defaults:
+                JWT_SECRET: $jwt-secret
+                MEDIA:
+                    allowed_image_extensions:
+                      - jpg
+                      - png
+                      - gif
+                      - webp
+
+        testsuite-support: {}
+
+        congestion-control:
+
+        http-client:
+        http-client-core:
+            fs-task-processor: fs-task-processor
+
+        dns-client:
+            fs-task-processor: fs-task-processor
+
+        tests-control:
+            load-enabled: $is-testing
+            path: /tests/{action}
+            method: POST
+            task_processor: main-task-processor
+
+        handler-implicit-http-options:
+            as_fallback: implicit-http-options
+            method: OPTIONS
+            task_processor: main-task-processor
+
+        handler-ping:
+            path: /ping
+            method: GET
+            task_processor: main-task-processor
+            throttling_enabled: false
+            url_trailing_slash: strict-match
+
+        media-storage:
+            url: $media-url
+            public-url: $media-public-url
+            bucket: $media-bucket
+            access-key: $s3-access-key
+            secret-key: $s3-secret-key
+            timeout-ms: 1000
+            retries: 2
+            prefixes:
+                avatars: avatars
+                recipes: recipes
+
+        handler-list-users:
+            path: /users
+            method: GET
+            task_processor: main-task-processor
+            pagination:
+                default_page_size: 6
+                max_page_size: 100
+            auth:
+                types:
+                  - bearer
+
+        handler-register-user:
+            path: /users
+            method: POST
+            task_processor: main-task-processor
+
+        handler-get-user:
+            path: /users/{id}
+            method: GET
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+
+        handler-get-current-user:
+            path: /users/me
+            method: GET
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-set-avatar:
+            path: /users/me/avatar
+            method: PUT
+            task_processor: main-task-processor
+            max_request_size: 10485760
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-delete-avatar:
+            path: /users/me/avatar
+            method: DELETE
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-list-subscriptions:
+            path: /users/subscriptions
+            method: GET
+            task_processor: main-task-processor
+            pagination:
+                default_page_size: 6
+                max_page_size: 100
+            recipes_limit: 100
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-subscribe:
+            path: /users/{id}/subscribe
+            method: POST
+            task_processor: main-task-processor
+            recipes_limit: 100
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-unsubscribe:
+            path: /users/{id}/subscribe
+            method: DELETE
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-set-password:
+            path: /users/set_password
+            method: POST
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-login:
+            path: /auth/token/login
+            method: POST
+            task_processor: main-task-processor
+
+        handler-logout:
+            path: /auth/token/logout
+            method: POST
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-list-ingredients:
+            path: /ingredients
+            method: GET
+            task_processor: main-task-processor
+
+        handler-get-ingredient:
+            path: /ingredients/{id}
+            method: GET
+            task_processor: main-task-processor
+
+        handler-list-recipes:
+            path: /recipes
+            method: GET
+            task_processor: main-task-processor
+            pagination:
+                default_page_size: 6
+                max_page_size: 100
+            auth:
+                types:
+                  - bearer
+
+        handler-create-recipe:
+            path: /recipes
+            method: POST
+            task_processor: main-task-processor
+            max_request_size: 10485760
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-get-recipe:
+            path: /recipes/{id}
+            method: GET
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+
+        handler-update-recipe:
+            path: /recipes/{id}
+            method: PATCH
+            task_processor: main-task-processor
+            max_request_size: 10485760
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-delete-recipe:
+            path: /recipes/{id}
+            method: DELETE
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-add-favorite:
+            path: /recipes/{id}/favorite
+            method: POST
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-remove-favorite:
+            path: /recipes/{id}/favorite
+            method: DELETE
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-add-to-shopping-cart:
+            path: /recipes/{id}/shopping_cart
+            method: POST
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-remove-from-shopping-cart:
+            path: /recipes/{id}/shopping_cart
+            method: DELETE
+            task_processor: main-task-processor
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        handler-download-shopping-cart:
+            path: /recipes/download_shopping_cart
+            method: GET
+            task_processor: main-task-processor
+            font_path: fonts/LiberationSans-Regular.ttf
+            auth:
+                types:
+                  - bearer
+                required: true
+
+        postgres-db-1:
+            dbconnection: $pg-connection
+            blocking_task_processor: fs-task-processor
+            dns_resolver: async
+            sync-start: true
+            connlimit_mode: manual

@@ -1,0 +1,36 @@
+{
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "backend",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "llvm-vs-code-extensions.vscode-clangd",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.makefile-tools",
+        "vadimcn.vscode-lldb",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "clangd.arguments": [
+          "--background-index",
+          "--compile-commands-dir=.vscode",
+          "--clang-tidy",
+          "--completion-style=detailed",
+          "--header-insertion=never"
+        ],
+        "clangd.path": "/usr/bin/clangd",
+        "cmake.automaticReconfigure": false,
+        "cmake.configureOnEdit": false,
+        "cmake.configureOnOpen": false,
+        "cmake.copyCompileCommands": "${workspaceFolder}/.vscode/compile_commands.json"
+      }
+    }
+  },
+  "forwardPorts": [
+    80,
+    8080
+  ],
+  "onCreateCommand": "sudo git config --global --add safe.directory /home/user/foodgram",
+  "remoteUser": "user",
+  "workspaceFolder": "/home/user/foodgram"
+}

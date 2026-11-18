@@ -1,0 +1,1377 @@
+{
+  "catalog": {
+    "enums": {},
+    "tables": {
+      "foodgram.favorite_recipes": {
+        "columns": [
+          {
+            "name": "id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "user_id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "recipe_id",
+            "nullable": false,
+            "type": "bigint"
+          }
+        ],
+        "name": "favorite_recipes",
+        "namespace": "foodgram",
+        "version": 0
+      },
+      "foodgram.ingredients": {
+        "columns": [
+          {
+            "name": "id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "name",
+            "nullable": false,
+            "type": "character varying(128)"
+          },
+          {
+            "name": "measurement_unit",
+            "nullable": false,
+            "type": "character varying(64)"
+          }
+        ],
+        "name": "ingredients",
+        "namespace": "foodgram",
+        "version": 0
+      },
+      "foodgram.purchases": {
+        "columns": [
+          {
+            "name": "id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "user_id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "recipe_id",
+            "nullable": false,
+            "type": "bigint"
+          }
+        ],
+        "name": "purchases",
+        "namespace": "foodgram",
+        "version": 0
+      },
+      "foodgram.recipe_ingredients": {
+        "columns": [
+          {
+            "name": "id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "recipe_id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "ingredient_id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "amount",
+            "nullable": false,
+            "type": "integer"
+          }
+        ],
+        "name": "recipe_ingredients",
+        "namespace": "foodgram",
+        "version": 0
+      },
+      "foodgram.recipes": {
+        "columns": [
+          {
+            "name": "id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "author_id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "name",
+            "nullable": false,
+            "type": "character varying(256)"
+          },
+          {
+            "name": "image",
+            "nullable": false,
+            "type": "character varying(255)"
+          },
+          {
+            "name": "text",
+            "nullable": false,
+            "type": "text"
+          },
+          {
+            "name": "cooking_time",
+            "nullable": false,
+            "type": "integer"
+          }
+        ],
+        "name": "recipes",
+        "namespace": "foodgram",
+        "version": 0
+      },
+      "foodgram.subscriptions": {
+        "columns": [
+          {
+            "name": "id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "subscriber_id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "author_id",
+            "nullable": false,
+            "type": "bigint"
+          }
+        ],
+        "name": "subscriptions",
+        "namespace": "foodgram",
+        "version": 0
+      },
+      "foodgram.users": {
+        "columns": [
+          {
+            "name": "id",
+            "nullable": false,
+            "type": "bigint"
+          },
+          {
+            "name": "password",
+            "nullable": false,
+            "type": "character varying(128)"
+          },
+          {
+            "name": "last_login",
+            "nullable": true,
+            "type": "timestamp with time zone"
+          },
+          {
+            "name": "username",
+            "nullable": false,
+            "type": "character varying(150)"
+          },
+          {
+            "name": "first_name",
+            "nullable": false,
+            "type": "character varying(150)"
+          },
+          {
+            "name": "last_name",
+            "nullable": false,
+            "type": "character varying(150)"
+          },
+          {
+            "name": "email",
+            "nullable": false,
+            "type": "character varying(254)"
+          },
+          {
+            "name": "date_joined",
+            "nullable": false,
+            "type": "timestamp with time zone"
+          },
+          {
+            "name": "avatar",
+            "nullable": true,
+            "type": "text"
+          }
+        ],
+        "name": "users",
+        "namespace": "foodgram",
+        "version": 0
+      }
+    },
+    "types": {}
+  },
+  "hashsum": "843720a37bff69c2e0ac7ee9d221cf63a419b94bc82bbe37379b22214e21387d",
+  "queries": [
+    {
+      "args": [
+        {
+          "nullable": false,
+          "type": "bigint"
+        },
+        {
+          "nullable": false,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "add_favorite",
+      "returns": []
+    },
+    {
+      "args": [
+        {
+          "nullable": false,
+          "type": "bigint"
+        },
+        {
+          "nullable": false,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "add_purchase",
+      "returns": []
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint[]"
+        },
+        {
+          "nullable": true,
+          "type": "integer[]"
+        }
+      ],
+      "cardinality": "many",
+      "name": "add_recipe_ingredients",
+      "returns": [
+        {
+          "name": "recipe_id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(128)"
+        },
+        {
+          "name": "measurement_unit",
+          "nullable": true,
+          "type": "character varying(64)"
+        },
+        {
+          "name": "amount",
+          "nullable": true,
+          "type": "integer"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "nullable": true,
+          "type": "boolean"
+        }
+      ],
+      "cardinality": "many",
+      "name": "count_recipes",
+      "returns": [
+        {
+          "name": "count",
+          "nullable": true,
+          "type": "bigint"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "count_subscriptions",
+      "returns": [
+        {
+          "name": "count",
+          "nullable": true,
+          "type": "bigint"
+        }
+      ]
+    },
+    {
+      "args": [],
+      "cardinality": "many",
+      "name": "count_users",
+      "returns": [
+        {
+          "name": "count",
+          "nullable": true,
+          "type": "bigint"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": false,
+          "type": "bigint"
+        },
+        {
+          "nullable": false,
+          "type": "character varying"
+        },
+        {
+          "nullable": false,
+          "type": "character varying"
+        },
+        {
+          "nullable": false,
+          "type": "text"
+        },
+        {
+          "nullable": false,
+          "type": "integer"
+        },
+        {
+          "nullable": true,
+          "type": "bigint[]"
+        },
+        {
+          "nullable": true,
+          "type": "integer[]"
+        }
+      ],
+      "cardinality": "many",
+      "name": "create_recipe",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(256)"
+        },
+        {
+          "name": "image",
+          "nullable": true,
+          "type": "character varying(255)"
+        },
+        {
+          "name": "text",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "cooking_time",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "author_id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "author_email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "author_username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_avatar",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "author_is_subscribed",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "is_favorited",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "is_in_shopping_cart",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": false,
+          "type": "character varying"
+        },
+        {
+          "nullable": false,
+          "type": "character varying"
+        },
+        {
+          "nullable": false,
+          "type": "character varying"
+        },
+        {
+          "nullable": false,
+          "type": "character varying"
+        },
+        {
+          "nullable": false,
+          "type": "character varying"
+        }
+      ],
+      "cardinality": "many",
+      "name": "create_user",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "delete_avatar",
+      "returns": [
+        {
+          "name": "avatar",
+          "nullable": true,
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "delete_recipe",
+      "returns": []
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "delete_recipe_ingredients",
+      "returns": []
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "get_ingredient",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(128)"
+        },
+        {
+          "name": "measurement_unit",
+          "nullable": true,
+          "type": "character varying(64)"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "get_password",
+      "returns": [
+        {
+          "name": "password",
+          "nullable": true,
+          "type": "character varying(128)"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "get_recipe",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(256)"
+        },
+        {
+          "name": "image",
+          "nullable": true,
+          "type": "character varying(255)"
+        },
+        {
+          "name": "text",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "cooking_time",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "author_id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "author_email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "author_username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_avatar",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "author_is_subscribed",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "is_favorited",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "is_in_shopping_cart",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint[]"
+        }
+      ],
+      "cardinality": "many",
+      "name": "get_recipe_ingredients",
+      "returns": [
+        {
+          "name": "recipe_id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(128)"
+        },
+        {
+          "name": "measurement_unit",
+          "nullable": true,
+          "type": "character varying(64)"
+        },
+        {
+          "name": "amount",
+          "nullable": true,
+          "type": "integer"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "get_shopping_cart",
+      "returns": [
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(128)"
+        },
+        {
+          "name": "measurement_unit",
+          "nullable": true,
+          "type": "character varying(64)"
+        },
+        {
+          "name": "amount",
+          "nullable": true,
+          "type": "integer"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "get_user",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "avatar",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "is_subscribed",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "text"
+        }
+      ],
+      "cardinality": "many",
+      "name": "get_user_by_email",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "avatar",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "password",
+          "nullable": true,
+          "type": "character varying(128)"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "get_user_with_recipes_count",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "avatar",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "is_subscribed",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "recipes_count",
+          "nullable": true,
+          "type": "bigint"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "text"
+        }
+      ],
+      "cardinality": "many",
+      "name": "list_ingredients",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(128)"
+        },
+        {
+          "name": "measurement_unit",
+          "nullable": true,
+          "type": "character varying(64)"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "list_recipes",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(256)"
+        },
+        {
+          "name": "image",
+          "nullable": true,
+          "type": "character varying(255)"
+        },
+        {
+          "name": "text",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "cooking_time",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "author_id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "author_email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "author_username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_avatar",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "author_is_subscribed",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "is_favorited",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "is_in_shopping_cart",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint[]"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "list_subscription_recipes",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "author_id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(256)"
+        },
+        {
+          "name": "image",
+          "nullable": true,
+          "type": "character varying(255)"
+        },
+        {
+          "name": "cooking_time",
+          "nullable": true,
+          "type": "integer"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "list_subscriptions",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "avatar",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "is_subscribed",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "recipes_count",
+          "nullable": true,
+          "type": "bigint"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "list_users",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "avatar",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "is_subscribed",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "remove_favorite",
+      "returns": []
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "remove_purchase",
+      "returns": []
+    },
+    {
+      "args": [
+        {
+          "nullable": false,
+          "type": "bigint"
+        },
+        {
+          "nullable": false,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "subscribe",
+      "returns": []
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "unsubscribe",
+      "returns": []
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "text"
+        }
+      ],
+      "cardinality": "many",
+      "name": "update_avatar",
+      "returns": [
+        {
+          "name": "avatar",
+          "nullable": true,
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "character varying"
+        }
+      ],
+      "cardinality": "many",
+      "name": "update_password",
+      "returns": []
+    },
+    {
+      "args": [
+        {
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "nullable": true,
+          "type": "character varying"
+        },
+        {
+          "nullable": true,
+          "type": "character varying"
+        },
+        {
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "nullable": true,
+          "type": "bigint"
+        }
+      ],
+      "cardinality": "many",
+      "name": "update_recipe",
+      "returns": [
+        {
+          "name": "id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "name",
+          "nullable": true,
+          "type": "character varying(256)"
+        },
+        {
+          "name": "image",
+          "nullable": true,
+          "type": "character varying(255)"
+        },
+        {
+          "name": "text",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "cooking_time",
+          "nullable": true,
+          "type": "integer"
+        },
+        {
+          "name": "author_id",
+          "nullable": true,
+          "type": "bigint"
+        },
+        {
+          "name": "author_email",
+          "nullable": true,
+          "type": "character varying(254)"
+        },
+        {
+          "name": "author_username",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_first_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_last_name",
+          "nullable": true,
+          "type": "character varying(150)"
+        },
+        {
+          "name": "author_avatar",
+          "nullable": true,
+          "type": "text"
+        },
+        {
+          "name": "author_is_subscribed",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "is_favorited",
+          "nullable": true,
+          "type": "boolean"
+        },
+        {
+          "name": "is_in_shopping_cart",
+          "nullable": true,
+          "type": "boolean"
+        }
+      ]
+    }
+  ]
+}
